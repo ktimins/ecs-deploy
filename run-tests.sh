@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-apk add bats
+apk add bats --update-cache
 
 bats test.bats
