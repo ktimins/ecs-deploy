@@ -10,6 +10,8 @@ This script uses the Task Definition and Service entities in Amazon's ECS to ins
 "feature complete" and will generally only consider PRs if they are bugfixes or
 are to add support for new AWS CLI features.
 
+__We have migrated the container image to GHCR.__
+
 ## Usage
 
     One of the following is required:
