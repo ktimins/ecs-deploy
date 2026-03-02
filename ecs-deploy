@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Setup default values for variables
-VERSION="3.10.22"
+VERSION="3.10.23"
 CLUSTER=false
 SERVICE=false
 TASK_DEFINITION=false
@@ -392,10 +392,9 @@ function createNewTaskDefJson() {
 
     # Some options in task definition should only be included in new definition if present in
     # current definition. If found in current definition, append to JQ filter.
-    CONDITIONAL_OPTIONS=(networkMode taskRoleArn placementConstraints executionRoleArn runtimePlatform ephemeralStorage proxyConfiguration)
+    CONDITIONAL_OPTIONS=(networkMode taskRoleArn placementConstraints executionRoleArn runtimePlatform ephemeralStorage proxyConfiguration memory cpu)
     for i in "${CONDITIONAL_OPTIONS[@]}"; do
-      re=".*${i}.*"
-      if [[ "$DEF" =~ $re ]]; then
+      if echo "$DEF" | jq --exit-status --arg key "$i" 'has($key)' >/dev/null; then
         NEW_DEF_JQ_FILTER="${NEW_DEF_JQ_FILTER}, ${i}: .${i}"
       fi
     done
